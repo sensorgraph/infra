@@ -1,2 +1,6 @@
+#Terraform
 terraform.tfstate*
 .terraform*
+
+#Secret
+*.pem
