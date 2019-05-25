@@ -1,3 +1,8 @@
+output "availability_zones" {
+    value       = var.availability_zones
+    description = "The AZs to be used on the infrastructure"
+}
+
 output "vpc_id" {
     value       = aws_vpc.main.id
     description = "The ID of main VPC"

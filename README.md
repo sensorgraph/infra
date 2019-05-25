@@ -32,6 +32,7 @@ terraform destroy
 
 | Name | Description |
 |------|-------------|
+| availability\_zones | The AZs to be used on the infrastructure |
 | private\_subnet\_id | The IDs of private subnets |
 | public\_subnet\_id | The IDs of public subnets |
 | vpc\_id | The ID of main VPC |
