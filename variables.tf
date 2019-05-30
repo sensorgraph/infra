@@ -30,14 +30,14 @@ variable "availability_zones" {
 
 variable "tags" {
   type        = "map"
-  description = "Default tags to be applied on the infrastructure"
+  description = "Default tags to be applied on the bastion infrastructure"
   default     = {
-    Environment       = "No Prod"
-    Application       = "Sensor Graph"
-    Organisation      = "Kibadex"
-    OrganisationUnit  = "Kibadex Labs"
-    Contact           = "mohamed.basri@outlook.com"
-    Comment           = "Managed by Terraform"
+      Organisation     = "Kibadex"
+      OrganisationUnit = "Kibadex Labs"
+      Application      = "All"
+      Environment      = "No Prod"       
+      Contact          = "mohamed.basri@outlook.com"
+      Comment          = "Managed by Terraform"
   }
 }
 
