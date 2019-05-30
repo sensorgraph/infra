@@ -32,9 +32,21 @@ variable "tags" {
   type        = "map"
   description = "Default tags to be applied on the infrastructure"
   default     = {
-    Environment = "dev"
-    Application = "Sensor Graph"
-    Contact     = "mohamed.basri@outlook.com"
-    Comment     = "Managed by Terraform"
+    Environment       = "No Prod"
+    Application       = "Sensor Graph"
+    Organisation      = "Kibadex"
+    OrganisationUnit  = "Kibadex Labs"
+    Contact           = "mohamed.basri@outlook.com"
+    Comment           = "Managed by Terraform"
+  }
+}
+
+variable "name" {
+  type        = "map"
+  description = "Default tags name to be applied on the infrastructure for the resources names"
+  default     = {
+    Environment      = "npd"
+    Organisation     = "kbd"
+    OrganisationUnit = "lab"
   }
 }
