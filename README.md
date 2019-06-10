@@ -37,3 +37,18 @@ terraform destroy
 | private\_subnet\_id | The IDs of private subnets |
 | public\_subnet\_id | The IDs of public subnets |
 | vpc\_id | The ID of main VPC |
+
+## AWS architecture diagram
+
+### [https://www.draw.io](https://www.draw.io) 
+[files/drawio/infra.xml](files/drawio/infra.xml)
+
+![files/drawio/infra.png](files/drawio/infra.png)
+
+## Author
+
+* [**Mohamed BASRI**](https://github.com/mbasri)
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](./LICENSE) file for details
