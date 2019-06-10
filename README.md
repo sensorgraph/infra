@@ -44,6 +44,8 @@ Use this file [files/drawio/infra.xml](files/drawio/infra.xml) on this site [htt
 
 ![files/drawio/infra.png](files/drawio/infra.png)
 
+> Note: The `NAT Gateway` is not yet implemented
+
 ## Author
 
 * [**Mohamed BASRI**](https://github.com/mbasri)
