@@ -40,8 +40,7 @@ terraform destroy
 
 ## AWS architecture diagram
 
-### [https://www.draw.io](https://www.draw.io) 
-[files/drawio/infra.xml](files/drawio/infra.xml)
+Use this file [files/drawio/infra.xml](files/drawio/infra.xml) on this site [https://www.draw.io](https://www.draw.io) if you need to contribute to the diagram.
 
 ![files/drawio/infra.png](files/drawio/infra.png)
 
