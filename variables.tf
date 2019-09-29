@@ -32,12 +32,17 @@ variable "tags" {
   type        = "map"
   description = "Default tags to be applied on the bastion infrastructure"
   default     = {
-      Organisation     = "Kibadex"
-      OrganisationUnit = "Kibadex Labs"
-      Application      = "All"
-      Environment      = "No Prod"       
-      Contact          = "mohamed.basri@outlook.com"
-      Comment          = "Managed by Terraform"
+      "Billing:Organisation"     = "Kibadex"
+      "Billing:OrganisationUnit" = "Kibadex Labs"
+      "Billing:Application"      = "All"
+      "Billing:Environment"      = "Prod"       
+      "Billing:Contact"          = "mohamed.basri@outlook.com"
+      "Technical:Terraform"      = "True"
+      "Technical:Version"        = "1.0.0"
+      #"Technical:Comment"        = "Managed by Terraform"
+      #"Security:Compliance"      = "HIPAA"
+      #"Security:DataSensitity"   = "1"
+      #"Security:Encryption"      = "True"
   }
 }
 
@@ -45,7 +50,7 @@ variable "name" {
   type        = "map"
   description = "Default tags name to be applied on the infrastructure for the resources names"
   default     = {
-    Environment      = "npd"
+    Environment      = "prd"
     Organisation     = "kbd"
     OrganisationUnit = "lab"
   }

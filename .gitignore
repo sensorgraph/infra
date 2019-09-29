@@ -1,7 +1,7 @@
-#Terraform
+# Terraform
 terraform.tfstate*
 .terraform*
 *-plan
 
-#Secret
+# Secrets
 *.pem

@@ -17,3 +17,8 @@ output "private_subnet_id" {
   value       = aws_subnet.private.*.id
   description = "The IDs of private subnets"
 }
+
+output "bucket_name_accesslog_bucket" {
+  value       = aws_s3_bucket.accesslog.bucket
+  description = "Bucket to use for logging the acceslogs for the others Bucket"
+}

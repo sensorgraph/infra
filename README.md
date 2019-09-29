@@ -3,16 +3,19 @@
 ## How to create/destroy the infrastructure
 
 ### 1. Initialise you environmernt
+
 ```shell
 aws configure
 ```
 
 ### 2. Create the infrastructure
+
 ```shell
 terraform apply
 ```
 
 ### 3. Destroy the infrastructure
+
 ```shell
 terraform destroy
 ```
@@ -25,8 +28,8 @@ terraform destroy
 | aws\_region | Region to use for create the infrastructure (default: Paris) | string | `"eu-west-3"` | no |
 | private\_cidr | The both IPs range used in the private subnet | list | `[ "10.0.0.0/26", "10.0.0.64/26" ]` | no |
 | public\_cidr | The both IPs range useds in the public subnet | list | `[ "10.0.0.128/26", "10.0.0.192/26" ]` | no |
-| name | Default tags name to be applied on the infrastructure for the resources names| map | `{ "Organisation": "kbd", "OrganisationUnit": "lab", "Environment": "npd" }` | no |
-| tags | Default tags to be applied on the infrastructure | map | `{ "Organisation": "Kibadex", "OrganisationUnit": "Kibadex Labs", "Application": "All", "Environment": "No Prod", "Comment": "Managed by Terraform", "Contact": "mohamed.basri@outlook.com" }` | no |
+| name | Default tags name to be applied on the infrastructure for the resources names| map | `...` | no |
+| tags | Default tags to be applied on the infrastructure | map | `...` | no |
 | vpc\_cidr | IP range to use on the VPC (default: 256 IPs) | string | `"10.0.0.0/24"` | no |
 
 ## Outputs

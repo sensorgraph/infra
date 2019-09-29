@@ -1,11 +1,11 @@
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
-  tags       = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "all", "vpc", "1"])))
+  tags       = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "all"])))
 }
 
 resource "aws_internet_gateway" "public" {
   vpc_id = aws_vpc.main.id
-  tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub", "igw", "1"])))
+  tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub"])))
 }
 
 resource "aws_route_table" "public" {
@@ -14,12 +14,12 @@ resource "aws_route_table" "public" {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.public.id
   }
-  tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub", "rtb", "1"])))
+  tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub"])))
 }
 
 resource "aws_route_table" "private" {
   vpc_id = aws_vpc.main.id
-  tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri", "rtb", "1"])))
+  tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri"])))
 }
 
 resource "aws_subnet" "public" {
@@ -27,7 +27,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.public_cidr[count.index]
   availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
-  tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub", "sub", count.index+1])))
+  tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub", "0${count.index+1}"])))
 }
 
 resource "aws_subnet" "private" {
@@ -35,7 +35,7 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = var.private_cidr[count.index]
   availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
-  tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri", "sub", count.index+1])))
+  tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri", "0${count.index+1}"])))
 }
 
 resource "aws_network_acl" "public" {
