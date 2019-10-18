@@ -10,18 +10,6 @@ variable "vpc_cidr" {
   default     = "10.0.0.0/24"
 }
 
-variable "private_cidr" {
-  type        = "list"
-  description = "The both IPs range used in the private subnet"
-  default     = ["10.0.0.0/26", "10.0.0.64/26"]
-}
-
-variable "public_cidr" {
-  type        = "list"
-  description = "The both IPs range useds in the public subnet" 
-  default     = ["10.0.0.128/26", "10.0.0.192/26"]
-}
-
 variable "availability_zones" {
   type        = "list"
   description =  "By default we use only 2 AZs on Paris"

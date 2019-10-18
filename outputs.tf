@@ -13,20 +13,22 @@ output "public_subnet_id" {
   description = "The IDs of public subnets"
 }
 
+output "public_subnet_cidr" {
+  value        = aws_subnet.public.*.cidr_block
+  description = "The both IPs range useds in the public subnet" 
+}
+
 output "private_subnet_id" {
   value       = aws_subnet.private.*.id
   description = "The IDs of private subnets"
 }
 
+output "private_private_cidr" {
+  value        = aws_subnet.private.*.cidr_block
+  description = "The both IPs range used in the private subnet"
+}
+
 output "bucket_name_accesslog_bucket" {
   value       = aws_s3_bucket.accesslog.bucket
   description = "Bucket to use for logging the acceslogs for the others Bucket"
-}
-
-output "test" {
-  value = cidrsubnets("10.0.0.0/24", 2, 2, 2, 2)
-}
-
-output "test1" {
-  value = cidrsubnet("10.0.0.0/24", 2, 1)
 }

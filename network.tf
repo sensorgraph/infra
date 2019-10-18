@@ -29,7 +29,7 @@ resource "aws_route_table" "private" {
 resource "aws_subnet" "public" {
   count             = length(var.availability_zones)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.public_cidr[count.index]
+  cidr_block        = cidrsubnet(var.vpc_cidr, 2, count.index)
   availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
   tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub", "0${count.index+1}"])))
 }
@@ -37,7 +37,7 @@ resource "aws_subnet" "public" {
 resource "aws_subnet" "private" {
   count             = length(var.availability_zones)
   vpc_id            = aws_vpc.main.id
-  cidr_block        = var.private_cidr[count.index]
+  cidr_block        = cidrsubnet(var.vpc_cidr, 2, length(var.availability_zones) + count.index)
   availability_zone = var.availability_zones[count.index % length(var.availability_zones)]
   tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri", "0${count.index+1}"])))
 }
