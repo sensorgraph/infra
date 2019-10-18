@@ -22,3 +22,11 @@ output "bucket_name_accesslog_bucket" {
   value       = aws_s3_bucket.accesslog.bucket
   description = "Bucket to use for logging the acceslogs for the others Bucket"
 }
+
+output "test" {
+  value = cidrsubnets("10.0.0.0/24", 2, 2, 2, 2)
+}
+
+output "test1" {
+  value = cidrsubnet("10.0.0.0/24", 2, 1)
+}

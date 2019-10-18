@@ -1,13 +1,16 @@
+# VPC
 resource "aws_vpc" "main" {
   cidr_block = var.vpc_cidr
   tags       = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "all"])))
 }
 
+# IG
 resource "aws_internet_gateway" "public" {
   vpc_id = aws_vpc.main.id
   tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub"])))
 }
 
+# Route table
 resource "aws_route_table" "public" {
   vpc_id = aws_vpc.main.id
   route {
@@ -22,6 +25,7 @@ resource "aws_route_table" "private" {
   tags   = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri"])))
 }
 
+# Subnet
 resource "aws_subnet" "public" {
   count             = length(var.availability_zones)
   vpc_id            = aws_vpc.main.id
@@ -38,6 +42,7 @@ resource "aws_subnet" "private" {
   tags              = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri", "0${count.index+1}"])))
 }
 
+# NACL
 resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = aws_subnet.public.*.id
@@ -57,7 +62,7 @@ resource "aws_network_acl" "public" {
     from_port  = 0
     to_port    = 0
   }
-  tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub", "acl", "1"])))
+  tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub"])))
 }
 
 resource "aws_network_acl" "private" {
@@ -79,8 +84,10 @@ resource "aws_network_acl" "private" {
     from_port  = 0
     to_port    = 0
   }
-  tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri", "acl", "1"])))
+  tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri"])))
 }
+
+# Subnet <-->  Route table
 resource "aws_route_table_association" "public" {
   count          = length(var.availability_zones)
   subnet_id      = element(aws_subnet.public.*.id, count.index)
@@ -91,4 +98,12 @@ resource "aws_route_table_association" "private" {
   count          = length(var.availability_zones)
   subnet_id      = element(aws_subnet.private.*.id, count.index)
   route_table_id = aws_route_table.private.id
+}
+
+# VPC Endpoint - S3 Gateway
+resource "aws_vpc_endpoint" "s3" {
+  vpc_id          = aws_vpc.main.id
+  service_name    = "com.amazonaws.${var.region}.s3"
+  route_table_ids = ["${aws_route_table.public.id}","${aws_route_table.private.id}"]
+  tags            = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "bs3"])))
 }

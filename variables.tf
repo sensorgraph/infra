@@ -1,4 +1,4 @@
-variable "aws_region" {
+variable "region" {
   type        = "string"
   description = "Region to use for create the infrastructure (default: Paris)"
   default     = "eu-west-3"
