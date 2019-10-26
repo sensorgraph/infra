@@ -32,3 +32,13 @@ output "bucket_name_accesslog_bucket" {
   value       = aws_s3_bucket.accesslog.bucket
   description = "Bucket to use for logging the acceslogs for the others Bucket"
 }
+
+output "bucket_name_archivelog_bucket" {
+  value       = aws_s3_bucket.archivelog.bucket
+  description = "Bucket to use for archive all the custom logs"
+}
+
+output "hosted_zone_id" {
+  value       = data.aws_route53_zone.main.zone_id
+  description = "Bucket to use for archive all the custom logs"
+}
