@@ -5,7 +5,7 @@ resource "aws_s3_bucket" "accesslog" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = data.aws_kms_key.s3.arn
+        kms_master_key_id = data.aws_kms_alias.s3.target_key_arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -32,7 +32,7 @@ resource "aws_s3_bucket" "archivelog" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = data.aws_kms_key.s3.arn
+        kms_master_key_id = data.aws_kms_alias.s3.target_key_arn
         sse_algorithm     = "aws:kms"
       }
     }
