@@ -22,7 +22,7 @@ variable "tags" {
   default     = {
       "Billing:Organisation"     = "Kibadex"
       "Billing:OrganisationUnit" = "Kibadex Labs"
-      "Billing:Application"      = "All"
+      "Billing:Application"      = "Infrastructure"
       "Billing:Environment"      = "Prod"       
       "Billing:Contact"          = "mohamed.basri@outlook.com"
       "Technical:Terraform"      = "True"
@@ -41,5 +41,6 @@ variable "name" {
     Environment      = "prd"
     Organisation     = "kbd"
     OrganisationUnit = "lab"
+    Application      = "inf"
   }
 }
