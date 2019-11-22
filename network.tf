@@ -107,3 +107,11 @@ resource "aws_vpc_endpoint" "s3" {
   route_table_ids = ["${aws_route_table.public.id}","${aws_route_table.private.id}"]
   tags            = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "bs3"])))
 }
+
+# VPC Endpoint - S3 Gateway
+resource "aws_vpc_endpoint" "dynamodb" {
+  vpc_id          = aws_vpc.main.id
+  service_name    = "com.amazonaws.${var.region}.dynamodb"
+  route_table_ids = ["${aws_route_table.public.id}","${aws_route_table.private.id}"]
+  tags            = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "ddb"])))
+}
