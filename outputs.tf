@@ -1,3 +1,8 @@
+output "region" {
+  value       = var.region
+  description = "The main region"
+}
+
 output "availability_zones" {
   value       = var.availability_zones
   description = "The AZs to be used on the infrastructure"
@@ -28,9 +33,14 @@ output "private_private_cidr" {
   description = "The both IPs range used in the private subnet"
 }
 
-output "bucket_name_accesslog_bucket" {
-  value       = aws_s3_bucket.accesslog.bucket
+output "bucket_name_s3_accesslog_bucket" {
+  value       = aws_s3_bucket.s3_accesslog.bucket
   description = "Bucket to use for logging the acceslogs for the others Bucket"
+}
+
+output "bucket_name_lb_accesslog_bucket" {
+  value       = aws_s3_bucket.lb_accesslog.bucket
+  description = "Bucket to use for logging the acceslogs for the load balencer"
 }
 
 output "bucket_name_archivelog_bucket" {
@@ -41,4 +51,11 @@ output "bucket_name_archivelog_bucket" {
 output "hosted_zone_id" {
   value       = data.aws_route53_zone.main.zone_id
   description = "Bucket to use for archive all the custom logs"
+}
+
+# Security
+
+output "sg_public_web_lb" {
+  value       = aws_security_group.public_web_lb.id
+  description = "Security group to use apublic web application"
 }

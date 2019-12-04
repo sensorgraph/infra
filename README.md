@@ -1,4 +1,4 @@
-# Project to use for create all the SensorGraph infrastructure 
+# Project to use for create all the SensorGraph infrastructure
 
 ## How to create/destroy the infrastructure
 
@@ -24,16 +24,17 @@ terraform destroy
 
 | Name | Description | Type | Default | Required |
 |------|-------------|:----:|:-----:|:-----:|
-| availability\_zones | By default we use only 2 AZs on Paris | list | `[ "eu-west-3a", "eu-west-3b" ]` | no |
+| availability\_zones | By default we use only 2 AZs on Paris | list | `[ "eu-west-3a", "eu-west-3b", "eu-west-3c" ]` | no |
 | aws\_region | Region to use for create the infrastructure (default: Paris) | string | `"eu-west-3"` | no |
 | name | Default tags name to be applied on the infrastructure for the resources names| map | `...` | no |
 | tags | Default tags to be applied on the infrastructure | map | `...` | no |
-| vpc\_cidr | IP range to use on the VPC (default: 256 IPs) | string | `"10.0.0.0/24"` | no |
+| vpc\_cidr | IP range to use on the VPC (default: 256 IPs) | string | `"10.0.0.0/23"` | no |
 
 ## Outputs
 
 | Name | Description |
 |------|-------------|
+| region | The main region |
 | availability\_zones | The AZs to be used on the infrastructure |
 | bucket\_name\_accesslog\_bucket  | Bucket to use for logging the acceslogs for the others Bucket |
 | private\_subnet\_id | The IDs of private subnets |

@@ -1,23 +1,23 @@
 variable "region" {
-  type        = "string"
+  type        = string
   description = "Region to use for create the infrastructure (default: Paris)"
   default     = "eu-west-3"
 }
 
 variable "vpc_cidr" {
-  type        = "string"
-  description = "IP range to use on the VPC (default: 256 IPs)"
-  default     = "10.0.0.0/24"
+  type        = string
+  description = "IP range to use on the VPC (default: 512 IPs)"
+  default     = "10.0.0.0/23"
 }
 
 variable "availability_zones" {
-  type        = "list"
+  type        = list
   description =  "By default we use only 2 AZs on Paris"
-  default     = ["eu-west-3a", "eu-west-3b"]
+  default     = ["eu-west-3a", "eu-west-3b", "eu-west-3c"]
 }
 
 variable "tags" {
-  type        = "map"
+  type        = map
   description = "Default tags to be applied on the bastion infrastructure"
   default     = {
       "Billing:Organisation"     = "Kibadex"
@@ -35,7 +35,7 @@ variable "tags" {
 }
 
 variable "name" {
-  type        = "map"
+  type        = map
   description = "Default tags name to be applied on the infrastructure for the resources names"
   default     = {
     Environment      = "prd"
