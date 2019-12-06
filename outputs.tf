@@ -13,6 +13,11 @@ output "vpc_id" {
   description = "The ID of main VPC"
 }
 
+output "vpc_cidr" {
+  value       = var.vpc_cidr
+  description = "The VPC CIDR"
+}
+
 output "public_subnet_id" {
   value       = aws_subnet.public.*.id
   description = "The IDs of public subnets"
@@ -57,5 +62,10 @@ output "hosted_zone_id" {
 
 output "sg_public_web_lb" {
   value       = aws_security_group.public_web_lb.id
-  description = "Security group to use apublic web application"
+  description = "Security group to use for public web application"
+}
+
+output "sg_access_to_internet" {
+  value       = aws_security_group.access_to_internet.id
+  description = "Security group to use to access to Internet"
 }

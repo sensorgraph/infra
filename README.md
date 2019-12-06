@@ -42,6 +42,7 @@ terraform destroy
 | public\_subnet\_id | The IDs of public subnets |
 | public\_subnet\_cidr | The both IPs range useds in the public subnet |
 | vpc\_id | The ID of main VPC |
+| vpc\_cidr | The VPC CIDR |
 
 ## AWS architecture diagram
 

@@ -84,6 +84,14 @@ resource "aws_network_acl" "private" {
     from_port  = 0
     to_port    = 0
   }
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 300
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 1024
+    to_port    = 65535
+  }
   tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri"])))
 }
 
