@@ -23,3 +23,10 @@ data "template_file" "lb_accesslog_policy" {
     lb_account_arn = data.aws_elb_service_account.main.arn
   }
 }
+
+data "template_file" "s3_log_archive_policy" {
+  template = file("files/iam/s3-log-archive-policy.json.tpl")
+  vars     = {
+    bucket_name_archivelog_bucket = aws_s3_bucket.archivelog.id
+  }
+}

@@ -53,6 +53,11 @@ output "bucket_name_archivelog_bucket" {
   description = "Bucket to use for archive all the custom logs"
 }
 
+output "arn_archivelog_bucket" {
+  value       = aws_iam_policy.s3_logs_archive.arn
+  description = "Policy to use for archive all the custom logs"
+}
+
 output "hosted_zone_id" {
   value       = data.aws_route53_zone.main.zone_id
   description = "Bucket to use for archive all the custom logs"
