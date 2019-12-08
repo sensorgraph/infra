@@ -9,6 +9,10 @@ data "aws_kms_alias" "s3" {
 
 data "aws_elb_service_account" "main" {}
 
+data "http" "myip" {
+  url = "http://ipv4.icanhazip.com"
+}
+
 data "template_file" "vpc_flow_logs_policy" {
   template = file("files/iam/vpc-flow-logs-policy.json.tpl")
   vars     = {

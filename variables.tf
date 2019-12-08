@@ -24,7 +24,7 @@ variable "tags" {
       "Billing:OrganisationUnit" = "Kibadex Labs"
       "Billing:Application"      = "Infrastructure"
       "Billing:Environment"      = "Prod"       
-      "Billing:Contact"          = "mohamed.basri@outlook.com"
+      "Billing:Contact"          = "mohamed.basri.dev@gmail.com"
       "Technical:Terraform"      = "True"
       "Technical:Version"        = "1.0.0"
       #"Technical:Comment"        = "Managed by Terraform"

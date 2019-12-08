@@ -46,52 +46,62 @@ resource "aws_subnet" "private" {
 resource "aws_network_acl" "public" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = aws_subnet.public.*.id
-  egress {
-    protocol   = "all"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
+
+  dynamic "ingress" {
+    for_each = local.public_acl_ingress
+    content {
+      rule_no         = ingress.value.rule_no
+      protocol        = ingress.value.protocol
+      action          = ingress.value.action
+      cidr_block      = ingress.value.cidr_block
+      from_port       = ingress.value.from_port
+      to_port         = ingress.value.to_port
+    }
   }
-  ingress {
-    protocol   = "all"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
+
+  dynamic "egress" {
+    for_each = local.public_acl_egress
+    content {
+      rule_no         = egress.value.rule_no
+      protocol        = egress.value.protocol
+      action          = egress.value.action
+      cidr_block      = egress.value.cidr_block
+      from_port       = egress.value.from_port
+      to_port         = egress.value.to_port
+    }
   }
+
   tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pub"])))
 }
 
 resource "aws_network_acl" "private" {
   vpc_id     = aws_vpc.main.id
   subnet_ids = aws_subnet.private.*.id
-  egress {
-    protocol   = "all"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 0
-    to_port    = 0
+  
+  dynamic "ingress" {
+    for_each = local.private_acl_ingress
+    content {
+      rule_no         = ingress.value.rule_no
+      protocol        = ingress.value.protocol
+      action          = ingress.value.action
+      cidr_block      = ingress.value.cidr_block
+      from_port       = ingress.value.from_port
+      to_port         = ingress.value.to_port
+    }
   }
-  ingress {
-    protocol   = "all"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = var.vpc_cidr
-    from_port  = 0
-    to_port    = 0
+
+  dynamic "egress" {
+    for_each = local.private_acl_egress
+    content {
+      rule_no         = egress.value.rule_no
+      protocol        = egress.value.protocol
+      action          = egress.value.action
+      cidr_block      = egress.value.cidr_block
+      from_port       = egress.value.from_port
+      to_port         = egress.value.to_port
+    }
   }
-  ingress {
-    protocol   = "tcp"
-    rule_no    = 300
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 1024
-    to_port    = 65535
-  }
+
   tags = merge(var.tags, map("Name", join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "pri"])))
 }
 
