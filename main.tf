@@ -6,8 +6,9 @@ resource "aws_s3_bucket" "s3_accesslog" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = data.aws_kms_alias.s3.target_key_arn
-        sse_algorithm     = "aws:kms"
+        # Using KMS will breack the default AWS account to push logs (Root account for pushing S3 accesslog)
+        #kms_master_key_id = data.aws_kms_alias.s3.target_key_arn
+        sse_algorithm     = "AES256"
       }
     }
   }
@@ -40,6 +41,11 @@ resource "aws_s3_bucket" "archivelog" {
     }
   }
 
+  logging {
+    target_bucket = aws_s3_bucket.s3_accesslog.id
+    target_prefix = "s3/${join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "all", "bs3", "arc"])}/"
+  }
+
   lifecycle {
     prevent_destroy = true
   }
@@ -59,15 +65,20 @@ resource "aws_s3_bucket_public_access_block" "archivelog" {
 resource "aws_s3_bucket" "lb_accesslog" {
   bucket = join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "all", "bs3", "acc"])
 
-/* server_side_encryption_configuration {
+ server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = data.aws_kms_alias.s3.target_key_arn
-        sse_algorithm     = "aws:kms"
+        # Using KMS will breack the default AWS account to push logs (Root account for pushing LB accesslog)
+        #kms_master_key_id = data.aws_kms_alias.s3.target_key_arn
+        sse_algorithm     = "AES256"
       }
     }
   }
-*/
+
+  logging {
+    target_bucket = aws_s3_bucket.s3_accesslog.id
+    target_prefix = "s3/${join("-",[var.name["Organisation"], var.name["OrganisationUnit"], "all", var.name["Environment"], "all", "bs3", "acc"])}/"
+  }
 
   lifecycle {
     prevent_destroy = true
