@@ -14,7 +14,7 @@ locals {
       rule_no    = 110
       protocol   = "tcp"
       action     = "allow"
-      cidr_block = var.vpc_cidr
+      cidr_block = "0.0.0.0/0" //var.vpc_cidr
       from_port  = 80
       to_port    = 80
     },  
@@ -22,7 +22,7 @@ locals {
       rule_no    = 120
       protocol   = "tcp"
       action     = "allow"
-      cidr_block = var.vpc_cidr
+      cidr_block = "0.0.0.0/0" //var.vpc_cidr
       from_port  = 443
       to_port    = 443
     },
@@ -68,6 +68,14 @@ locals {
       action     = "allow"
       cidr_block = "0.0.0.0/0"
       from_port  = 32768
+      to_port    = 65535
+    },
+    {
+      protocol   = "tcp"
+      rule_no    = 140
+      action     = "allow"
+      cidr_block = "0.0.0.0/0"
+      from_port  = 1024
       to_port    = 65535
     }
   ] 

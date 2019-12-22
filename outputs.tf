@@ -70,6 +70,16 @@ output "sg_public_web_lb" {
   description = "Security group to use for public web application"
 }
 
+output "sg_private_web_app" {
+  value       = aws_security_group.private_web_app.id
+  description = "Security group to use for private web application"
+}
+
+output "sg_access_to_private_web_app" {
+  value       = aws_security_group.access_to_private_web_app.id
+  description = "Security group to use to access to Internet"
+}
+
 output "sg_access_to_internet" {
   value       = aws_security_group.access_to_internet.id
   description = "Security group to use to access to Internet"
