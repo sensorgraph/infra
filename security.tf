@@ -47,6 +47,14 @@ resource "aws_security_group" "private_web_app" {
     description = "[Terraform] Open HTTPS to VPC"
   }
 
+  ingress {
+    from_port   = 32768
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+    description = "[Terraform] Open ECS ephemeral port range to VPC"
+  }
+
   tags = merge(var.tags, map("Name", "private-web-app"))
 }
 
@@ -69,6 +77,14 @@ resource "aws_security_group" "access_to_private_web_app" {
     protocol    = "tcp"
     cidr_blocks = [var.vpc_cidr]
     description = "[Terraform] Allow output to VPC HTTPS"
+  }
+
+  egress {
+    from_port   = 32768
+    to_port     = 65535
+    protocol    = "tcp"
+    cidr_blocks = [var.vpc_cidr]
+    description = "[Terraform] Allow output to VPC ECS ephemeral port range"
   }
 
   tags = merge(var.tags, map("Name", "access-to-private-web-app"))
